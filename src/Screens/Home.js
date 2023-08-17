@@ -6,10 +6,15 @@ import { Base_URL } from '../Config/BaseURL'
 import '../Styles/Home.css'
 import {useNavigate} from 'react-router-dom'
 
+import Lottie from 'react-lottie';
+import * as NoDataFound from '../Lottie/NDF.json'
+ 
+
 function Home({color}){
     const navigate = useNavigate()
 
     var [data , setData] = useState([])
+    var [copyData  , setCopyData]  = useState([])
 
     function getProductsData(){
 
@@ -33,6 +38,7 @@ function Home({color}){
 
                 console.log(prod_arr)
             setData(prod_arr)
+            setCopyData(prod_arr)
 
 
             }).catch((err)=>{
@@ -62,6 +68,16 @@ function Home({color}){
     },[])
 
 
+    const defaultOptions = {
+        loop: true,
+        autoplay: true, 
+        animationData: NoDataFound,
+        rendererSettings: {
+          preserveAspectRatio: 'xMidYMid slice'
+        }
+      };
+
+
  const addToCart =  (item) =>{
     console.log(item)
     var u_id =  localStorage.getItem('auth-id')
@@ -89,9 +105,41 @@ const handleViewMore = (item)=>{
  
 
 
+const handleSearch = (e)=>{
+   if(e.target.value)
+   {
+    var temp = copyData;
+  var f_data =   temp.filter((el,i)=>{
+        return  el.p_name.toLowerCase().includes(e.target.value.toLowerCase())
+    })
+
+
+    console.log(f_data)
+
+    setData(f_data)
+   }
+   else{
+    setData(copyData)
+   }
+
+   
+
+}
+
 
     return(
         <>
+
+
+
+
+        <div style={{marginTop:10}}>
+
+     <div  style={{width:"80%" ,  margin:"auto" }} class="input-group">
+  <input  onChange={handleSearch} type="search" class="form-control rounded" placeholder="Search" aria-label="Search" aria-describedby="search-addon" />
+  <button type="button" class="btn btn-outline-primary">search</button>
+</div>
+        </div>
         {Array.isArray(data) && data.length > 0 ?
         <>
         {data.map((el,i)=>(
@@ -111,7 +159,16 @@ const handleViewMore = (item)=>{
            
         ))}
        
-                </> :  null }
+                </> :  
+                
+
+                <Lottie options={defaultOptions}
+              height={400}
+              width={400}
+              isStopped={false}
+              isPaused={false}/>
+                
+                }
         </>
 
     )

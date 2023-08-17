@@ -39,6 +39,27 @@ setData(res.data.data.reverse())
 
 
 
+    function calculateSubtotal(el){
+      var total  =  0
+
+      if(Array.isArray(el.o_data) && el.o_data.length > 0)
+        {
+          for(let i = 0 ; i < el.o_data.length ;  i++)
+          {
+          total = total +  (el.o_data[i].pro_data.price - (el.o_data[i].pro_data.discount /  100) * el.o_data[i].pro_data.price)
+          }
+        
+        
+        }
+
+        console.log(total)
+
+        return total
+
+    }
+
+
+
 return(
 
     <>
@@ -46,7 +67,7 @@ return(
     <>
     {data.map((el,i)=>(
 <>
-<hr></hr>
+
 <div class="card" style={{width : "90%"}}>
   <div class="card-body">
     <h5 class="card-title">Order Date : {moment(el.date).format('MMMM Do YYYY, h:mm:ss a')}</h5>
@@ -89,11 +110,11 @@ return(
 </table>
 
     </p>
-    <a href="#" class="btn btn-primary">Go somewhere</a>
+    <a href="#" class="btn btn-success">Total Amount : {calculateSubtotal(el)} </a>
   </div>
 </div>
 
-<hr></hr>
+
 </>
     ))}
    
