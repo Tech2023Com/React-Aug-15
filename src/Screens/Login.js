@@ -38,6 +38,7 @@ function Login(){
                 console.log(res)
                 toast.success(res.data.message)
                 localStorage.setItem('auth-id'  , res.data.data._id)
+                localStorage.setItem('email'  , res.data.data.email)
                 window.location.reload()
 
             }).catch((err)=>{
@@ -66,6 +67,9 @@ function Login(){
   </div>
   <div class="form-group form-check">
     <h5>Don't have an account <Link  to='/register'>Register Here</Link> </h5>
+  </div>
+  <div class="form-group form-check">
+    <h5>Forgot Your Password <Link  to='/forgotPassword'>Reset Now</Link> </h5>
   </div>
   <button onClick={handleSubmit}  type="submit" class="btn btn-primary">Submit</button>
 {/* </form> */}

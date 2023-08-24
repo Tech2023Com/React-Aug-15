@@ -8,6 +8,7 @@ import ViewProduct from '../Screens/ViewProduct';
 import Cart from '../Screens/Cart';
 import Checkout from '../Screens/Checkout';
 import MyOrders from '../Screens/MyOrders';
+import MyProfile from '../Screens/MyProfile';
 
 
 
@@ -29,6 +30,7 @@ const AllRouting  =  ({countOfCart})=>{
             <Route path='/products/:id'  element={<ViewProduct/>}  />
             <Route path='/checkout'  element={<Checkout/>}  />
             <Route path='/my_orders'  element={<MyOrders/>}  />
+            <Route path='/my_profile'  element={<MyProfile/>}  />
             <Route path='*'  element={<Home/>}  />
         </Routes>
 

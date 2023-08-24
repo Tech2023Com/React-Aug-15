@@ -4,6 +4,17 @@ import axios from "axios"
 import { Base_URL } from "../Config/BaseURL"
 import {toast} from 'react-toastify'
 import  {useNavigate , useLocation} from 'react-router-dom'
+import Lottie from 'react-lottie';
+import * as LoadingAnimation from '../Lottie/Loading.json'
+
+const defaultOptions = {
+  loop: true,
+  autoplay: true, 
+  animationData: LoadingAnimation,
+  rendererSettings: {
+    preserveAspectRatio: 'xMidYMid slice'
+  }
+};
 
 function Checkout(){
 
@@ -14,6 +25,7 @@ function Checkout(){
 
     var [addressFlag , setAddressFlag] = useState(false)
     var [getAddress , setGetAddress] = useState([])
+    var [loading , setLoading ]  = useState(false)
 
     var [new_address, setNewAddress] = useState({
         house : "",
@@ -95,7 +107,8 @@ const calculateSubtotal = () =>{
 
     var data = {
         u_id  :localStorage.getItem('auth-id'),
-        order_data  : state
+        order_data  : state,
+        email : localStorage.getItem('email')
     }
 
     axios.post(Base_URL+'/place_order' , data).then((res)=>{
@@ -104,6 +117,7 @@ const calculateSubtotal = () =>{
         navigate('/mycart')
         
     }).catch((err)=>{
+      console.log(err)
         toast.error(err.response.data.message)
 
     })
@@ -114,6 +128,10 @@ const calculateSubtotal = () =>{
     setAddressFlag(true)
   }
     return(
+
+      <>
+      {loading == false ?
+    
 
         <>
         {addressFlag == true  ?  
@@ -185,6 +203,20 @@ const calculateSubtotal = () =>{
 : null }
         
         </>
+
+
+</> :
+ <>
+
+ <Lottie options={defaultOptions}
+ height={400}
+ width={400}
+ isStopped={false}
+ isPaused={false}/>
+ <h4 style={{textAlign:"center" ,  color:"red"}}>Please Wait While we are fetching Data</h4>
+   
+ </>
+} 
 
 
 </>

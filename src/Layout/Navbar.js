@@ -56,9 +56,13 @@ return(
     <i onClick={()=> navigate('/mycart')} class="fa" style={{fontSize:'24px' ,  cursor:'pointer'}}>&#xf07a;</i>
     <span class='badge badge-warning' id='lblCartCount'>{countOfCart} </span>
       </div>
+      <div style={{marginRight : 20}}>
+
+    <i onClick={()=> navigate('/my_profile')} class="fa" style={{fontSize:'24px' ,  color:'green', cursor:'pointer'}}>&#xf4fc;</i>
+      </div>
 
 
-      <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" />
+      {/* <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" /> */}
       <button class="btn btn-outline-success my-2 my-sm-0" type="submit" onClick={handleLogout} >Logout</button>
     </form>
   </div>
